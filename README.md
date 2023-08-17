@@ -146,10 +146,7 @@ Verificando status do containerd
 
 Documentação: https://kubernetes.io/docs/setup/production-environment/container-runtimes/#cgroup-drivers
 
-Se o sistema utilizar systemd init system escolher systemd
-cgroupfs é o padrão
-
-Verificar init system:
+Verificando qual init system:
 
 `ps -p 1`
 
