@@ -125,7 +125,7 @@ Update the apt package index:
 
 Instalar containerd
 
-`sudo apt-get install containerd``
+`sudo apt-get install containerd`
 
 Reiniciando containerd
 
