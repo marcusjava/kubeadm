@@ -4,17 +4,18 @@
 
 <br/>
 
-<h1>Deploy kubernetes cluster com kubeadm - The Hardest Way</h1>
+<h1>Deploy kubernetes cluster com kubeadm</h1>
+<h1>The Hardest Way</h1>
 
-##1 - Preparando o ambiente
+<h2> 1 - Preparando o ambiente</h2>
 
-###VirtualBox
+<h3>VirtualBox</h3>
 
 Instalação:
 
 https://www.virtualbox.org/wiki/Linux_Downloads
 
-###Vagrant para provisionamento das VMs
+<h3>Vagrant para provisionamento das VMs</h3>
 
 Para criação do ambiente será utilizado o vagrant para provisionamento de um cluster com 3 nodes(1 master e 2 workers) cada um com 2G de memoria e 2 CPUs
 
@@ -22,7 +23,7 @@ Instalação:
 
 https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-install
 
-####Criando as maquinas virtuais:
+<h4>Criando as maquinas virtuais:</h4>
 
 No diretorio onde se encontra o arquivo Vagrantfile executar o seguinte comando:
 
@@ -40,17 +41,17 @@ Acessando os nodes:
 
 `vagrant ssh nodename`
 
-##2 - Instalação do Kubeadm
+<h2> 2 - Instalação do Kubeadm</h2>
 
 Executar os proximos procedimentos em todos os nós
 
 Documentação: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
-###Container runtime containerd
+<h3>Container runtime containerd</h3>
 
 Documentação: https://kubernetes.io/docs/setup/production-environment/container-runtimes/
 
-####Pré requisitos
+<h4>Pré requisitos</h4>
 
 ```
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
@@ -87,7 +88,7 @@ Verificar se net.bridge.bridge-nf-call-iptables, net.bridge.bridge-nf-call-ip6ta
 sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
 ```
 
-####Instalação
+<h4>Instalação</h4>
 
 Documentação: https://github.com/containerd/containerd/blob/main/docs/getting-started.md#option-2-from-apt-get-or-dnf
 
@@ -141,7 +142,7 @@ Verificando status do containerd
 
 <br/>
 
-####Cgroup drivers
+<h4>Cgroup drivers</h4>
 
 Documentação: https://kubernetes.io/docs/setup/production-environment/container-runtimes/#cgroup-drivers
 
@@ -182,7 +183,7 @@ Aplicando as configurações:
 
 `sudo systemctl restart containerd`
 
-##3 - Instalando kubeadm,kubelet e kubectl
+<h2>3 - Instalando kubeadm,kubelet e kubectl</h2>
 
 Update the apt package index and install packages needed to use the Kubernetes apt repository:
 
@@ -216,7 +217,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 ```
 
-####Criando um cluster com kubeadm
+<h4>Criando um cluster com kubeadm</h4>
 
 Documentação: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
 
@@ -252,13 +253,13 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 ```
 
-###Pod Network add-on
+<h3>Pod Network add-on</h3>
 
 Os plugins mais utilizados são Weave Net, Calico, Flannel e neste exemplo usaremos o Weave
 
 Documentação: https://kubernetes.io/docs/concepts/cluster-administration/addons/
 
-####Instalação Weave Net add-on
+<h4>Instalação Weave Net add-on</h4>
 
 Documentação: https://www.weave.works/docs/net/latest/kubernetes/kube-addon/
 
@@ -290,16 +291,16 @@ Verificando se os pods do kubernetes estão em execuação:
   <img alt="Schema" src="./images/kube-system.png" />
 </p>
 
-###Inicializando os worker nodes
+<h3>Inicializando os worker nodes</h3>
 
 Executar o seguinte comando nos worker nodes:
 
-`kubeadm join 192.168.56.2:6443 --token wfyc1e.jt3fgdqtr75d0g6y --discovery-token-ca-cert-hash sha256:b48d1f3c0f4463470b7aebfa7e33fa93309da3c6cd4a6eb082c75c50d9b8eb86`
+```
+
+kubeadm join 192.168.56.2:6443 --token wfyc1e.jt3fgdqtr75d0g6y --discovery-token-ca-cert-hash sha256:b48d1f3c0f4463470b7aebfa7e33fa93309da3c6cd4a6eb082c75c50d9b8eb86
+
+```
 
 <p>
   <img alt="Schema" src="./images/get_nodes.png" />
 </p>
-
-```
-
-```
